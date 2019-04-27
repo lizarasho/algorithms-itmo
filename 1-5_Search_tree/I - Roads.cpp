@@ -24,6 +24,7 @@ void apply(node * t)
 {
     t->size = size(t->left) + size(t->right) + 1;
 }
+
 pair<node *, node * > split(node * t, int k)
 {
     if(!t)
@@ -39,10 +40,8 @@ pair<node *, node * > split(node * t, int k)
     }
     auto [first, second] = split(t->right, k - size(t->left) - 1);
     t->right = first;
-
     if (first)
         first->parent = t;
-
     apply(t);
     return {t, second};
 }
@@ -79,7 +78,6 @@ void reverse(node * v)
     reverse(v->right);
 }
 
-
 node * root_of(node * k)
 {
     while (k->parent != nullptr)
@@ -104,10 +102,8 @@ void insert(int i, int j)
 {
     node * s = nodes[i];
     node * t = nodes[j];
-
     node * s_root = root_of(s);
     node * t_root = root_of(t);
-
     if (s_root == t_root)
     {
         pair<node *, node *> ends = get_ends(s_root);
@@ -117,10 +113,8 @@ void insert(int i, int j)
             s_root->cycle = true;
         return;
     }
-
     pair<node *, node *> s_ends = get_ends(s_root);
     pair<node *, node *> t_ends = get_ends(t_root);
-
     if (s_ends.second == s && t_ends.first == t)
         merge(s_root, t_root);
     else if (s_ends.first == s && t_ends.second == t)
@@ -154,54 +148,42 @@ void remove(int i, int j)
 
     node * s = nodes[i];
     node * t = nodes[j];
-
     node * s_root = root_of(s);
-
     pair<node *, node *> s_ends = get_ends(s_root);
-
     if (s_root->cycle)
     {
         s_root->cycle = false;
-
         if ((s_ends.first == s && s_ends.second == t)
             || (s_ends.second == s && s_ends.first == t))
             return;
-
         int s_num = find_number(s);
         int t_num = find_number(t);
-
         if (s_num + 1 == t_num)
         {
             auto [first, second] = split(s_root, t_num);
             first->parent = second->parent = nullptr;
-
             node * i_root = root_of(nodes[i]);
             node * j_root = root_of(nodes[j]);
             reverse(i_root);
             reverse(j_root);
-
             merge(i_root, j_root);
         }
         else
         {
             auto [first, second] = split(s_root, s_num);
             first->parent = second->parent = nullptr;
-
             node * i_root = root_of(nodes[i]);
             node * j_root = root_of(nodes[j]);
             reverse(i_root);
             reverse(j_root);
-
             merge(j_root, i_root);
         }
         root_of(nodes[i])->cycle =
         root_of(nodes[j])->cycle = false;
         return;
     }
-
     int s_num = find_number(s);
     int t_num = find_number(t);
-
     if (s_num + 1 == t_num)
     {
         auto [first, second] = split(s_root, t_num);
@@ -211,7 +193,6 @@ void remove(int i, int j)
         auto [first, second] = split(s_root, s_num);
         first->parent = second->parent = nullptr;
     }
-
 }
 
 
@@ -224,48 +205,37 @@ int query(int i, int j)
     node * t = nodes[j];
     node * s_root = root_of(s);
     node * t_root = root_of(t);
-
     if (s_root != t_root)
         return -1;
-
     int s_num = find_number(s);
     int t_num = find_number(t);
-
     if (s_root->cycle == 0)
         return abs(t_num - s_num) - 1;
-
     node * temp = s_root;
     while (temp->right != nullptr)
         temp = temp->right;
-
     int maximum = find_number(temp);
     if (t_num > s_num)
         return min(maximum - t_num + s_num, t_num - s_num - 1);
     else
         return min(maximum - s_num + t_num, s_num - t_num - 1);
-
 }
 
 int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
     int n, m, q;
     cin >> n >> m >> q;
-
     for (int k = 0; k <= n; k++)
         nodes.push_back(new node(k));
-
     int i, j;
     for (int k = 0; k < m; k++)
     {
         cin >> i >> j;
         insert(i, j);
     }
-
     char c;
-
     for (int k = 0; k < q; k++)
     {
         cin >> c;
