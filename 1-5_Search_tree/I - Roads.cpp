@@ -198,7 +198,6 @@ void remove(int i, int j)
 
 int query(int i, int j)
 {
-
     if (i == j)
         return 0;
     node * s = nodes[i];
