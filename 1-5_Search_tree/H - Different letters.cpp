@@ -31,6 +31,7 @@ int all_letters(node * t)
 {
     return t ? t->all_letters : 0;
 }
+
 void update(node * t)
 {
     if (t)
