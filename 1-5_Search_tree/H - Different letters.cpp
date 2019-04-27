@@ -43,9 +43,7 @@ void update(node * t)
 pair<node *, node * > split(node * t, int k)
 {
     if(!t) return {nullptr, nullptr};
-
     int ls = all_size(t->left);
-
     if (k > ls + t->size)
     {
         pair<node *, node *> temp = split(t->right, k - ls - t->size);
@@ -53,7 +51,6 @@ pair<node *, node * > split(node * t, int k)
         update(t);
         return {t, temp.second};
     }
-
     if (k == ls + t->size)
     {
         node * temp = t->right;
@@ -61,7 +58,6 @@ pair<node *, node * > split(node * t, int k)
         update(t);
         return {t, temp};
     }
-
     if (k - ls >= 0)
     {
         node * first = new node(k - ls, t->letter);
@@ -184,7 +180,6 @@ void rebuild()
         }
         k = max(k + 1, i);
     }
-
     k = 0;
     while (!tree[k])
         k++;
@@ -206,7 +201,6 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-
     root = nullptr;
     int n;
     int index, number;
