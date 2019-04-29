@@ -134,7 +134,7 @@ void insert(int i, int j)
 int find_number(node * v)
 {
     int ans = size(v->left);
-    while (v->parent != nullptr)
+    while (v->parent)
     {
         if (v == v->parent->right)
             ans += size(v->parent->left) + 1;
