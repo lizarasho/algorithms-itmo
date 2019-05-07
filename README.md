@@ -4,7 +4,7 @@
 ### Лабораторная работа 1-3. Динамическое программирование 
  * *Условие*: http://codeforces.com/group/CYMPFXi8zA/contest/234464/problems  
 * * *
-    
+* * *
 ## 1-4_Segment_tree
 ### Лабораторная работа 1-4. Дерево отрезков 
  * *Условие*: http://codeforces.com/group/CYMPFXi8zA/contest/240094/problems
