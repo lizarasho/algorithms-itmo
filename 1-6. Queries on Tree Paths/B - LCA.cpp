@@ -3,7 +3,6 @@
 
 using namespace std;
 int log_n;
-vector<int> p;
 vector<int> d;
 vector<vector<int>> dp;
 
@@ -27,28 +26,24 @@ int lca(int u, int v)
             u = dp[u][i];
         }
     }
-    return p[v];
+    return dp[v][0];
 }
 
 int main()
 {
     int n;
     cin >> n;
-    p.resize(n);
     d.resize(n);
     dp.resize(n);
+    dp[0].push_back(0);
 
-    p[0] = d[0] = 0;
     for (int i = 1; i < n; i++)
     {
         int x;
         cin >> x;
-        p[i] = x - 1;
+        dp[i].push_back(x - 1);
         d[i] = d[x - 1] + 1;
     }
-
-    for (int i = 0; i < n; i++)
-        dp[i].push_back(p[i]);
 
     log_n = 0;
     for (int j = 1; 1 << (j - 1) < n; j++)
