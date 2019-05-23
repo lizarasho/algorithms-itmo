@@ -15,3 +15,8 @@
  * *Условие*: http://codeforces.com/group/CYMPFXi8zA/contest/241546/problems 
  * * *
  * * *
+ ## 1-6_Queries_on_Tree_Paths
+### Лабораторная работа 1-6. Запросы на деревьях 
+ * *Условие*: http://codeforces.com/group/CYMPFXi8zA/contest/243321/problems
+ * * *
+ * * *
