@@ -1,5 +1,11 @@
 # Algorithms-ITMO
 
+## 1-1. Sorting, Heap, Binary Search
+### Лабораторная работа 1-1. Сортировки, куча, бинпоиск
+ * *Условие*: http://codeforces.com/group/CYMPFXi8zA/contest/230408/problems  
+* * *
+* * *
+
 ## 1-3. Dynamic programming
 ### Лабораторная работа 1-3. Динамическое программирование 
  * *Условие*: http://codeforces.com/group/CYMPFXi8zA/contest/234464/problems  
