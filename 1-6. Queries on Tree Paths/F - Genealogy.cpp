@@ -31,6 +31,7 @@ int size(node * x)
 {
     return x ? x->size : 0;
 }
+
 void update(node * x)
 {
     if (x)
