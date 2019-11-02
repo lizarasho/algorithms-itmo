@@ -18,7 +18,7 @@
 ### 2-3. Queries on Tree Paths
 > > Tasks: http://codeforces.com/group/CYMPFXi8zA/contest/243321/problems  
 
-### 2-3. DFS, MST
+### 3-1. DFS, MST
 > > Tasks: https://codeforces.com/group/CYMPFXi8zA/contest/254629/problems  
 
 
