@@ -9,15 +9,17 @@
 ### 1-3. Dynamic programming
 > > Tasks: http://codeforces.com/group/CYMPFXi8zA/contest/234464/problems  
 
-### 1-4. Segment Tree
+### 2-1. Segment Tree
 > > Tasks: http://codeforces.com/group/CYMPFXi8zA/contest/240094/problems  
 
-### 1-5. Search Tree
+### 2-2. Search Tree
 > > Tasks: http://codeforces.com/group/CYMPFXi8zA/contest/241546/problems   
  
-### 1-6. Queries on Tree Paths
+### 2-3. Queries on Tree Paths
 > > Tasks: http://codeforces.com/group/CYMPFXi8zA/contest/243321/problems  
 
+### 2-3. DFS, MST
+> > Tasks: https://codeforces.com/group/CYMPFXi8zA/contest/254629/problems  
 
 
 
