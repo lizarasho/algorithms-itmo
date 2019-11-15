@@ -26,7 +26,6 @@ vector<int> d;
 
 int n, M;
 long long t;
-bool possible;
 
 void dfs(int u, int s)
 {
@@ -38,7 +37,7 @@ void dfs(int u, int s)
         new_graph[num[u][s]].push_back({num[v][(s + w) % M], w});
         if (v == n - 1 && (s + w) % M == t % M)
         {
-            possible = true;
+            used[num[n - 1][t % M]] = true;
             return;
         }
         dfs(v, (s + w) % M);
@@ -85,7 +84,8 @@ int main()
 
     if (graph[n - 1].empty())
     {
-        cout << "Impossible", 0;
+        cout << "Impossible";
+        return 0;
     }
     M = 2 * graph[n - 1][0].w;
 
@@ -103,7 +103,7 @@ int main()
     new_graph.resize(n * M);
     dfs(0, 0);
 
-    if (possible)
+    if (used[num[n - 1][t % M]])
     {
         dijkstra();
         if (d[num[n - 1][t % M]] <= t)
