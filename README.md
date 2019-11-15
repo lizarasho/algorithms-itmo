@@ -21,7 +21,6 @@
 ### 3-1. DFS, MST
 > > Tasks: https://codeforces.com/group/CYMPFXi8zA/contest/254629/problems  
 
-
 ### 3-2. The shortest paths. Games
 > > Tasks: https://codeforces.com/group/CYMPFXi8zA/contest/257753/problems  
 
