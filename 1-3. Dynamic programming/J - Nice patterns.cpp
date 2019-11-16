@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-    vector<vector<int>> dp (2);
+    vector<vector<int>> dp(2);
     vector<unordered_set<int>> vec(1 << 15);
 
     int n, m;
@@ -17,13 +17,16 @@ int main()
         swap(n, m);
 
     for (int x = 0; x < 1 << n; x++)
+    {
         for (int y = x; y < 1 << n; y++)
         {
-            bool f = 1;
+            bool f = true;
             for (int j = 0; j < n - 1; j++)
-                if ((x >> j & 1) == (y >> j & 1) && (y >> j & 1) == (x >> (j + 1) & 1) && (x >> (j + 1) & 1) == (y >> (j + 1) & 1))
+                if ((x >> j & 1) == (y >> j & 1) 
+                    && (y >> j & 1) == (x >> (j + 1) & 1) 
+                    && (x >> (j + 1) & 1) == (y >> (j + 1) & 1))
                 {
-                    f = 0;
+                    f = false;
                     break;
                 }
             if (f)
@@ -32,6 +35,7 @@ int main()
                 vec[y].insert(x);
             }
         }
+    }
 
     for (int x = 0; x < 1 << n; x++)
     {
