@@ -17,12 +17,13 @@ int main() {
 
     for (int i = 0; i < n; i++)
         cin >> c[i];
+
     for (int i = 1; i < 1 << n; i++)
-    {
         dp[i] = make_pair(INT_MAX, INT_MAX);
-    }
     dp[0] = make_pair(0, 0);
+
     pair<long long, long long> temp;
+
     for (int i = 1; i < 1 << n; i++)
     {
         for (int j = 0; j < n; j++)
@@ -30,19 +31,20 @@ int main() {
             if (i >> j & 1)
             {
                 temp = dp[i & ~(1 << j)];
+
                 if (temp.second + c[j] < w)
+                {
                     temp.second += c[j];
-                else
-                    if (temp.second + c[j] == w)
-                    {
-                        temp.first++;
-                        temp.second = 0;
-                    }
-                    else
-                    {
-                        temp.first++;
-                        temp.second = c[j];
-                    }
+                }
+                else if (temp.second + c[j] == w)
+                {
+                    temp.first++;
+                    temp.second = 0;
+                } else
+                {
+                    temp.first++;
+                    temp.second = c[j];
+                }
 
                 if ((temp.first < dp[i].first) || (temp.first == dp[i].first && temp.second < dp[i].second))
                 {
@@ -57,6 +59,7 @@ int main() {
 
     int mask = (1 << n) - 1;
     vector<int> way;
+
     while (mask > 0)
     {
         int from = last[mask];
@@ -64,6 +67,7 @@ int main() {
         mask -= 1 << from;
     }
     cout << endl;
+
     int s = 0;
     vector<int> cur_way;
 
@@ -75,6 +79,7 @@ int main() {
             for (int j = cur_way.size() - 1; j >= 0; j--)
                 cout << cur_way[j] << " ";
             cout << endl;
+
             s = c[way[i]];
             cur_way.clear();
             cur_way.push_back(way[i] + 1);
@@ -97,11 +102,13 @@ int main() {
             s += c[way[i]];
         }
     }
-    if (cur_way.size() > 0)
+
+    if (!cur_way.empty())
     {
         cout << cur_way.size() << " ";
         for (int j = cur_way.size() - 1; j >= 0; j--)
             cout << cur_way[j] << " ";
     }
 
+    return 0;
 }
