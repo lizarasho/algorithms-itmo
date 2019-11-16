@@ -35,8 +35,7 @@ int main() {
                 if (temp.second + c[j] < w)
                 {
                     temp.second += c[j];
-                }
-                else if (temp.second + c[j] == w)
+                } else if (temp.second + c[j] == w)
                 {
                     temp.first++;
                     temp.second = 0;
