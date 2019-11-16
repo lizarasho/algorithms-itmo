@@ -75,7 +75,7 @@ int main()
             continue;
         }
         line--;
-        if (c[line + 1] > 100)
+        if (c[line + 1] > N)
             col--;
     }
 
