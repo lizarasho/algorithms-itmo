@@ -8,40 +8,41 @@ vector<vector<long long>> dp (2);
 vector<long long> need(14);
 int n, m;
 
-bool good(int x, int y, int st)
+bool good(int x, int y, int col)
 {
     for (int j = m - 1; j >= 0; j--)
     {
         if ((x >> j & 1) == 0)
         {
             if ((y >> j & 1) == 1)
-                if ((need[st - 1] >> j & 1) == 1)
-                    return 0;
-                else
-                    continue;
+            {
+                if ((need[col - 1] >> j & 1) == 1)
+                    return false;
+                continue;
+            }
 
-            if ((need[st] >> j & 1) == 1 && (need[st - 1] >> j & 1) == 1)
+            if ((need[col] >> j & 1) == 1 && (need[col - 1] >> j & 1) == 1)
                 continue;
-            if ((need[st - 1] >> j & 1) == 1)
+            if ((need[col - 1] >> j & 1) == 1)
                 continue;
-            if (j == 0 || x >> (j - 1) & 1 != 0 || (need[st - 1] >> (j - 1) & 1) == 1 || y >> (j - 1) & 1 != 0)
-                return 0;
-            else
-                j--;
+
+            if (j == 0 || x >> (j - 1) & 1 != 0 || (need[col - 1] >> (j - 1) & 1) == 1 || y >> (j - 1) & 1 != 0)
+                return false;
+            j--;
         }
     }
-    return 1;
+    return true;
 }
 
 
 int main() {
+
     cin >> m >> n;
     int mask = 1 << m;
-    bool all = 1;
-    string s;
 
     for (int i = 0; i < m; i++)
     {
+        string s;
         cin >> s;
         for (int j = 0; j < n; j++)
             if (s[j] == 'X')
@@ -49,12 +50,16 @@ int main() {
     }
     need[n] = mask - 1;
 
+    bool all = true;
+
     for (int i = 0; i <= n; i++)
+    {
         if (need[i] != mask - 1)
         {
-            all = 0;
+            all = false;
             break;
         }
+    }
 
     for (int x = 0; x < mask; x++)
     {
@@ -67,7 +72,9 @@ int main() {
     for (int i = 1; i < n; i++)
     {
         for (int x = 0; x < mask; x++)
+        {
             for (int y = 0; y < mask; y++)
+            {
                 if (((~need[i - 1] | x) == ~need[i - 1]) && ((~need[i] | y) == ~need[i]))
                 {
                     if (((x & y) == 0) && good(x, y, i))
@@ -75,19 +82,29 @@ int main() {
                         dp[1][y] += dp[0][x];
                     }
                 }
+            }
+        }
 
         dp[0] = dp[1];
         for (int x = 0; x < mask; x++)
+        {
             dp[1][x] = 0;
+        }
     }
 
     long long res = 0;
     if (!all)
     {
         for (int x = 0; x < mask; x++)
+        {
             if (good(x, 0, n))
+            {
                 res += dp[0][x];
-        cout << res;
-    } else
-        cout << 1;
+            }
+        }
+        cout << res, 0;
+    }
+
+    cout << 1;
+    return 0;
 }
