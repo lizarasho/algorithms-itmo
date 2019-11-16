@@ -2,19 +2,24 @@
 #include <string>
 #include <vector>
 #include <iostream>
+
 using namespace std;
 
-const int N = 1000;
-char how[N][N];
-int c[N][N];
-int dp[N][N];
+vector<vector<char>> how;
+vector<vector<int>> c;
+vector<vector<int>> dp;
 
 int main()
 {
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
+
     int n, m;
     cin >> n >> m;
+
+    how.resize(n, vector<char>(m));
+    c.resize(n, vector<int>(m));
+    dp.resize(n, vector<int>(m));
 
     for (int i = 0; i < n; i++)
         for (int j = 0; j < m; j++)
@@ -34,29 +39,38 @@ int main()
     }
 
     for (int i = 1; i < n; i++)
+    {
         for (int j = 1; j < m; j++)
+        {
             if (dp[i - 1][j] > dp[i][j - 1])
             {
                 how[i][j] = 'D';
                 dp[i][j] = c[i][j] + dp[i - 1][j];
+                continue;
             }
-            else
-            {
-                how[i][j] = 'R';
-                dp[i][j] = c[i][j] + dp[i][j - 1];
-            }
+            how[i][j] = 'R';
+            dp[i][j] = c[i][j] + dp[i][j - 1];
+        }
+    }
 
-    cout << dp[n - 1][m - 1] << endl;
+    cout << dp[n - 1][m - 1] << '\n';
+
     vector<char> way;
-    int i = n - 1, j = m - 1;
+    int i = n - 1;
+    int j = m - 1;
     while (i > 0 || j > 0)
     {
         way.push_back(how[i][j]);
         if (how[i][j] == 'D')
+        {
             i--;
-        else
-            j--;
+            continue;
+        }
+        j--;
     }
+
     for (int k = way.size() - 1; k >= 0; k--)
         cout << way[k];
+
+    return 0;
 }
