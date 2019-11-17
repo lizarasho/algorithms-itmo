@@ -18,11 +18,11 @@ pair<node *, node * > split(node * t, int k)
         return { nullptr, nullptr };
     if (k > t -> x)
     {
-        pair<node *, node *> temp = split(t -> right, k);
+        auto temp = split(t -> right, k);
         t -> right = temp.first;
         return { t, temp.second };
     }
-    pair<node *, node *> temp = split(t -> left, k);
+    auto temp = split(t -> left, k);
     t -> left = temp.second;
     return { temp.first, t };
 }
@@ -42,7 +42,7 @@ node * merge(node * a, node * b)
 
 node * insert (node * t, node * k)
 {
-    pair<node *, node *> temp = split(t, k -> x);
+    auto temp = split(t, k -> x);
     temp.first = merge(temp.first, k);
     return merge(temp.first, temp.second);
 }
@@ -58,9 +58,9 @@ node * find(node * v, int k)
 
 node * remove (int x)
 {
-    pair<node *, node *> temp1 = split(root, x);
-    pair<node *, node *> temp2 = split(temp1.second, x + 1);
-    return merge(temp1.first, temp2.second);
+    auto a = split(root, x);
+    auto b = split(a.second, x + 1);
+    return merge(a.first, b.second);
 }
 
 bool exists(int x)
@@ -74,7 +74,7 @@ node * min_more(node * v, int k)
         return v;
     if (k < v -> x)
     {
-        node * nd = min_more(v -> left, k);
+        auto nd = min_more(v -> left, k);
         return nd ? nd : v;
     }
     return min_more(v -> right, k);
@@ -86,7 +86,7 @@ node * max_less(node * v, int k)
         return v;
     if (k > v -> x)
     {
-        node * nd = max_less(v -> right, k);
+        auto nd = max_less(v -> right, k);
         return nd ? nd : v;
     }
     return max_less(v -> left, k);
@@ -97,39 +97,46 @@ int main()
 {
     root = nullptr;
     string s;
-    int x;
 
     while (cin >> s)
     {
+        int x;
         cin >> x;
-        if (s[0] == 'i')
-            root = insert(root, new node(x));
-        else if (s[0] == 'e')
+        switch (s[0])
         {
-            if (exists(x))
-                cout << "true" << endl;
-            else
-                cout << "false" << endl;
-        }
-        else if (s[0] == 'd')
-            root = remove(x);
-        else if (s[0] == 'n')
-        {
-            node * next = min_more(root, x);
-            if (next)
-                cout << next -> x << endl;
-            else
-                cout << "none" << endl;
-
-        }
-        else if (s[0] == 'p')
-        {
-            node * prev = max_less(root, x);
-            if (prev)
-                cout << prev -> x << endl;
-            else
-                cout << "none" << endl;
-
+            case 'i':
+            {
+                root = insert(root, new node(x));
+                break;
+            }
+            case 'e':
+            {
+                cout << (exists(x) ? "true" : "false") << endl;
+                break;
+            }
+            case 'd':
+            {
+                root = remove(x);
+                break;
+            }
+            case 'n':
+            {
+                auto next = min_more(root, x);
+                if (next)
+                     cout << next -> x << endl;
+                else
+                    cout << "none" << endl;
+                break;
+            }
+            case 'p':
+            {
+                auto prev = max_less(root, x);
+                if (prev)
+                    cout << prev -> x << endl;
+                else
+                    cout << "none" << endl;
+            }
+            default: break;
         }
     }
     return 0;
