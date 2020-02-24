@@ -24,5 +24,6 @@
 ### 3-2. The shortest paths. Games
 > > Tasks: https://codeforces.com/group/CYMPFXi8zA/contest/257753/problems  
 
-
+### 3-3. Algorithms on Strings
+> > Tasks: https://codeforces.com/group/CYMPFXi8zA/contest/261526/problems
 
