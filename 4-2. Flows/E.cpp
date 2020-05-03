@@ -26,7 +26,7 @@ struct edge
 int l, r;
 int n, m, k;
 
-void add_edges(vector<vector<vector<int>>> & graph, vector<edge> & edges, vert a, vert b, int c)
+void add_edges(vector<vector<vector<int>>> &graph, vector<edge> &edges, vert a, vert b, int c)
 {
     graph[a.u][a.t].push_back((int) edges.size());
     edges.push_back({a, b, 0, c});
@@ -34,7 +34,7 @@ void add_edges(vector<vector<vector<int>>> & graph, vector<edge> & edges, vert a
     edges.push_back({b, a, 0, 0});
 }
 
-int shortest_path(int s, int t, vector<vector<int>> & g)
+int shortest_path(int s, int t, vector<vector<int>> &g)
 {
     vector<int> d(g.size(), INF);
     d[s] = 0;
@@ -54,8 +54,8 @@ int shortest_path(int s, int t, vector<vector<int>> & g)
     return d[t];
 }
 
-bool bfs(vector<vector<vector<int>>> & graph, vector<edge> & edges,
-        vert s, vert t, vector<vector<int>> & d)
+bool bfs(vector<vector<vector<int>>> &graph, vector<edge> &edges,
+        vert s, vert t, vector<vector<int>> &d)
 {
     for (auto &vec : d) {
         for (int &j : vec) {
@@ -82,8 +82,8 @@ bool bfs(vector<vector<vector<int>>> & graph, vector<edge> & edges,
     return d[t.u][t.t] != -1;
 }
 
-int dfs(vector<vector<vector<int>>> & graph, vector<edge> & edges,
-        vert u, vert t, int min_c, vector<vector<int>> & p, vector<vector<int>> & d)
+int dfs(vector<vector<vector<int>>> &graph, vector<edge> &edges,
+        vert u, vert t, int min_c, vector<vector<int>> &p, vector<vector<int>> &d)
 {
     if (((u.u == t.u) && (u.t == t.t)) || min_c == 0) {
         return min_c;
@@ -105,9 +105,9 @@ int dfs(vector<vector<vector<int>>> & graph, vector<edge> & edges,
     return 0;
 }
 
-int max_flow(vector<vector<vector<int>>> & graph, vector<edge> & graph_edges,
-             vector<vector<vector<int>>> & new_graph, vector<edge> & new_edges,
-             unordered_map<int, int> & num, vector<vector<int>> &g,
+int max_flow(vector<vector<vector<int>>> &graph, vector<edge> &graph_edges,
+             vector<vector<vector<int>>> &new_graph, vector<edge> &new_edges,
+             unordered_map<int, int> &num, vector<vector<int>> &g,
              int i, int s, int t)
 {
     for (int u = 0; u < n; u++) {
@@ -131,8 +131,7 @@ int max_flow(vector<vector<vector<int>>> & graph, vector<edge> & graph_edges,
     vector<vector<int>> p(new_graph.size(), vector<int> (new_graph[0].size()));
     vector<vector<int>> d(new_graph.size(), vector<int> (new_graph[0].size()));
     int ans = 0;
-    while (bfs(new_graph, new_edges, {s, 0}, {t, l + i - 1}, d))
-    {
+    while (bfs(new_graph, new_edges, {s, 0}, {t, l + i - 1}, d)) {
         for (auto &vec : p) {
             for (int &j : vec) {
                 j = 0;
@@ -145,11 +144,10 @@ int max_flow(vector<vector<vector<int>>> & graph, vector<edge> & graph_edges,
     return ans;
 }
 
-void set_one(vert a, vector<edge> & edges)
+void set_one(vert a, vector<edge> &edges)
 {
 
-    for (auto & e : edges)
-    {
+    for (auto & e : edges) {
         auto [u, v, f, c] = e;
         if ((a.u == u.u) && (a.t == u.t) && (v.u == a.u) && (v.t == a.t + 1) && (c > 0) ) {
             e.f += 1;
@@ -158,8 +156,8 @@ void set_one(vert a, vector<edge> & edges)
     }
 }
 
-void create_path(vert u, vector<vert> & path, vector<vector<vector<int>>> & graph,
-        vector<edge> & edges, unordered_map<int, int> & num, int t)
+void create_path(vert u, vector<vert> &path, vector<vector<vector<int>>> &graph,
+        vector<edge> &edges, unordered_map<int, int> &num, int t)
 {
     path.push_back(u);
     if (u.u == t) return;
